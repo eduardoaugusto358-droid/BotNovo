@@ -629,15 +629,19 @@
   }
 
   function renderUserUI(){
-    const nameEl = document.getElementById('currentInstanceName');
-    const typeEl = document.getElementById('currentInstanceType');
-    const listEl = document.getElementById('instanceList');
-    const avatarEl = document.getElementById('instanceAvatar');
-    const u = getCurrentUser();
+    try {
+      const nameEl = document.getElementById('currentInstanceName');
+      const typeEl = document.getElementById('currentInstanceType');
+      const listEl = document.getElementById('instanceList');
+      const avatarEl = document.getElementById('instanceAvatar');
+      const u = getCurrentUser();
 
-    if (nameEl) nameEl.textContent = u ? u.name : 'Sem usuário';
-    if (typeEl) typeEl.textContent  = u ? '@'+u.username : '—';
-    if (avatarEl) avatarEl.src = u ? ('https://i.pravatar.cc/80?u='+encodeURIComponent(u.username)) : 'https://i.pravatar.cc/80?img=1';
+      if (nameEl) {
+        nameEl.textContent = u ? u.name : 'Sem usuário';
+        console.log('Atualizando nome do usuário:', u ? u.name : 'Sem usuário');
+      }
+      if (typeEl) typeEl.textContent = u ? '@'+u.username : '—';
+      if (avatarEl) avatarEl.src = u ? ('https://i.pravatar.cc/80?u='+encodeURIComponent(u.username)) : 'https://i.pravatar.cc/80?img=1';
 
     if(!listEl) return;
     const users = AppState.users||[];
