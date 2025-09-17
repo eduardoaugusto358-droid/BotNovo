@@ -574,7 +574,12 @@
       AppState.currentUserId = user.id;
       saveState();
       renderUserUI();
-      changeTab('dashboard');
+      
+      // Force UI update
+      setTimeout(() => {
+        renderUserUI();
+        changeTab('dashboard');
+      }, 100);
     } catch(e) {
       console.error('Erro ao criar usuário:', e);
     }
