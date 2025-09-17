@@ -14,6 +14,6 @@ from backend.server import app
 
 if __name__ == "__main__":
     import uvicorn
-    print("🌐 Iniciando WhatsApp Bot Management System em http://chatbot.auto-atendimento.digital:8000")
+    print("🌐 Iniciando WhatsApp Bot Management System em http://78.46.250.112:8000")
     print("🚀 Sistema pronto para acesso pelo domínio!")
     uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")

@@ -420,7 +420,7 @@ async def read_root(request: Request):
                 </div>
                 
                 <div style="margin-top: 40px; text-align: center; color: #7f8c8d;">
-                    <p>🌐 Domain: chatbot.auto-atendimento.digital | 🚀 Powered by FastAPI</p>
+                    <p>🌐 Domain: 78.46.250.112 | 🚀 Powered by FastAPI</p>
                 </div>
             </div>
         </body>

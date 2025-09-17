@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Sistema de gestão WhatsApp Bot em HTML com bugs + requisitos: transformar em sistema executável para servidor SSH (chatbot.auto-atendimento.digital), auto-instalar dependências, funcionar com PostgreSQL + Baileys WhatsApp, executar tudo com python main.py"
+user_problem_statement: "Sistema de gestão WhatsApp Bot em HTML com bugs + requisitos: transformar em sistema executável para servidor SSH (78.46.250.112), auto-instalar dependências, funcionar com PostgreSQL + Baileys WhatsApp, executar tudo com python main.py"
 
 frontend:
   - task: "Corrigir bugs JavaScript no sistema HTML"
@@ -185,7 +185,7 @@ agent_communication:
     message: "🎉 COMPREHENSIVE BACKEND TESTING COMPLETED - 100% SUCCESS RATE! Tested all 7 core API endpoints with perfect results: Health check, Authentication (login/me), Dashboard stats, WhatsApp instances (list/create), Messages (list/send), Campaigns (list/create), and Finances. All endpoints returning proper JSON responses with correct data structures. Authentication flow working with admin/admin123 credentials. System is production-ready and fully functional at https://chatops-control.preview.emergentagent.com/api. Detailed test results saved to /app/test_results_backend.json."
 
 final_system_summary:
-  domain: "chatbot.auto-atendimento.digital"
+  domain: "78.46.250.112"
   server_ip: "78.46.250.112" 
   execution_command: "python3 main.py"
   auto_install: true
@@ -209,8 +209,8 @@ final_system_summary:
     - "Configurado para produção"
   
   access_urls:
-    - "http://chatbot.auto-atendimento.digital:8000 (Interface)"
-    - "http://chatbot.auto-atendimento.digital:8000/api/docs (API)"
+    - "http://78.46.250.112:8000 (Interface)"
+    - "http://78.46.250.112:8000/api/docs (API)"
     - "Login: admin / admin123"
 
 backend:
