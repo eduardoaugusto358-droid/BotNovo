@@ -82,33 +82,26 @@ python3 main.py
 - **QR Code**: Geração de códigos para conexão
 - **Webhooks**: Recebimento de mensagens em tempo real
 
-## 🚀 Instalação e Deploy
+## 🚀 Como Usar
 
-### Usando Docker (Recomendado)
+### ⚡ Método Simples (RECOMENDADO)
 
-1. **Clone o repositório**:
 ```bash
-git clone <repository-url>
+# 1. Faça o git clone do seu repositório
+git clone <seu-repositorio>
 cd whatsapp-bot-system
+
+# 2. Execute apenas este comando:
+python3 main.py
+
+# Pronto! O sistema vai:
+# - Instalar todas as dependências automaticamente
+# - Configurar PostgreSQL e Redis
+# - Iniciar todos os serviços
+# - Estar disponível em http://chatbot.auto-atendimento.digital:8000
 ```
 
-2. **Configure as variáveis de ambiente**:
-```bash
-cp .env.example .env
-# Edite o arquivo .env conforme necessário
-```
-
-3. **Inicie os serviços**:
-```bash
-docker-compose up -d
-```
-
-4. **Acesse a aplicação**:
-- Interface Web: http://localhost:8000
-- API Docs: http://localhost:8000/api/docs
-- Baileys Service: http://localhost:3001
-
-### Instalação Manual
+### 🔧 Instalação Manual (se necessário)
 
 #### Pré-requisitos
 - Python 3.11+
