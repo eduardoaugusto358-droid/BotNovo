@@ -98,7 +98,7 @@ class Conversation(Base):
     unread_count = Column(Integer, default=0)
     last_message_at = Column(DateTime(timezone=True), nullable=True)
     archived = Column(Boolean, default=False)
-    metadata = Column(JSON, default=dict)
+    conversation_metadata = Column(JSON, default=dict)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     
