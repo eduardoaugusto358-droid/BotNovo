@@ -70,7 +70,7 @@ class WhatsAppBotDeployer:
         self.log("Configurando backend WhatsApp Bot...", "PROGRESS")
         
         # Create new backend server that uses the virtual environment
-        backend_content = f"""#!/usr/bin/env python3
+        backend_content = f'''#!/usr/bin/env python3
 """
 WhatsApp Bot Management System - Backend Server
 Runs in virtual environment to avoid externally-managed-environment errors
