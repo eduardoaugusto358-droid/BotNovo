@@ -173,9 +173,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Sistema de criação de usuários"
-    - "Navegação entre abas do sidebar"
-    - "Sistema de modais e formulários"
+    - "Backend testing completed successfully"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
