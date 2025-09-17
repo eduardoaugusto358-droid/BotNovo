@@ -140,15 +140,73 @@ def install_python_deps():
     """Instala dependências Python"""
     print_status("Instalando dependências Python...", "HEADER")
     
-    # Upgrade pip
-    run_command(f"{sys.executable} -m pip install --upgrade pip")
+    try:
+        # Upgrade pip
+        print_status("Atualizando pip...")
+        result = run_command(f"{sys.executable} -m pip install --upgrade pip")
+        if not result[0]:
+            print_status(f"Aviso pip: {result[2]}", "WARNING")
+        
+        # Instalar requirements individuais para melhor controle
+        requirements = [
+            "fastapi==0.110.1",
+            "uvicorn[standard]==0.25.0", 
+            "sqlalchemy==2.0.25",
+            "psycopg2-binary==2.9.9",
+            "alembic==1.13.1",
+            "python-jose[cryptography]==3.3.0",
+            "passlib[bcrypt]==1.7.4",
+            "python-multipart==0.0.9",
+            "python-dotenv==1.0.1",
+            "pydantic==2.6.4",
+            "pydantic-settings==2.2.1",
+            "bcrypt==4.1.2",
+            "asyncpg==0.29.0",
+            "websockets==12.0",
+            "aiofiles==23.2.1",
+            "jinja2==3.1.3",
+            "redis==5.0.1",
+            "requests==2.31.0",
+            "qrcode==7.4.2",
+            "pillow==10.2.0",
+            "httpx==0.26.0"
+        ]
+        
+        for req in requirements:
+            print_status(f"Instalando {req}...")
+            result = run_command(f"{sys.executable} -m pip install {req}")
+            if not result[0]:
+                print_status(f"Erro instalando {req}: {result[2]}", "WARNING")
+        
+        # Instalar requirements.txt como backup
+        if os.path.exists("requirements.txt"):
+            print_status("Instalando requirements.txt...")
+            result = run_command(f"{sys.executable} -m pip install -r requirements.txt")
+            if not result[0]:
+                print_status(f"Aviso requirements.txt: {result[2]}", "WARNING")
+        
+        # Verificar se as principais dependências foram instaladas
+        test_imports = [
+            "fastapi", "sqlalchemy", "psycopg2", "alembic", 
+            "pydantic", "uvicorn", "redis", "httpx"
+        ]
+        
+        for module in test_imports:
+            result = run_command(f"{sys.executable} -c 'import {module}'")
+            if result[0]:
+                print_status(f"✅ {module} instalado", "SUCCESS")
+            else:
+                print_status(f"❌ {module} falhou", "ERROR")
+                # Tentar instalar individualmente
+                run_command(f"{sys.executable} -m pip install {module}")
+        
+        print_status("Dependências Python instaladas!", "SUCCESS")
+        
+    except Exception as e:
+        print_status(f"Erro instalando dependências Python: {e}", "ERROR")
+        return False
     
-    # Instalar requirements
-    if os.path.exists("requirements.txt"):
-        print_status("Instalando requirements.txt...")
-        run_command(f"{sys.executable} -m pip install -r requirements.txt")
-    
-    print_status("Dependências Python instaladas!", "SUCCESS")
+    return True
 
 def install_node_deps():
     """Instala dependências Node.js"""
