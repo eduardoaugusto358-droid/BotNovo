@@ -1,6 +1,6 @@
 import httpx
 import logging
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from config import settings
 from uuid import UUID
 
