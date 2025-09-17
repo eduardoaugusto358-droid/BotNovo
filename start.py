@@ -1,0 +1,177 @@
+#!/usr/bin/env python3
+"""
+Start Script - Versão Simplificada
+Instala dependências e inicia o sistema
+"""
+
+import subprocess
+import sys
+import os
+import time
+
+def print_msg(msg, type="INFO"):
+    colors = {"INFO": "\033[94m", "SUCCESS": "\033[92m", "WARNING": "\033[93m", "ERROR": "\033[91m", "END": "\033[0m"}
+    print(f"{colors.get(type, colors['INFO'])}[{type}]{colors['END']} {msg}")
+
+def run_cmd(cmd, show_output=False):
+    """Executa comando"""
+    try:
+        if show_output:
+            result = subprocess.run(cmd, shell=True, text=True)
+            return result.returncode == 0
+        else:
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+            return result.returncode == 0, result.stdout, result.stderr
+    except:
+        return False
+
+def install_deps():
+    """Instala dependências essenciais"""
+    print_msg("🔧 Instalando dependências Python...", "INFO")
+    
+    # Atualizar pip
+    run_cmd(f"{sys.executable} -m pip install --upgrade pip")
+    
+    # Dependências essenciais
+    essential_deps = [
+        "fastapi", "uvicorn[standard]", "sqlalchemy", 
+        "psycopg2-binary", "pydantic", "python-dotenv",
+        "jinja2", "python-multipart", "alembic"
+    ]
+    
+    for dep in essential_deps:
+        print_msg(f"📦 Instalando {dep}...")
+        success = run_cmd(f"{sys.executable} -m pip install '{dep}'")
+        if success:
+            print_msg(f"✅ {dep} instalado", "SUCCESS")
+        else:
+            print_msg(f"⚠️  Problema com {dep}", "WARNING")
+    
+    # Instalar requirements.txt
+    if os.path.exists("requirements.txt"):
+        print_msg("📄 Instalando requirements.txt...")
+        run_cmd(f"{sys.executable} -m pip install -r requirements.txt")
+
+def test_imports():
+    """Testa se consegue importar módulos essenciais"""
+    print_msg("🧪 Testando imports...", "INFO")
+    
+    modules = ["fastapi", "sqlalchemy", "psycopg2", "pydantic", "uvicorn"]
+    all_ok = True
+    
+    for module in modules:
+        try:
+            result = subprocess.run([sys.executable, "-c", f"import {module}"], 
+                                  capture_output=True)
+            if result.returncode == 0:
+                print_msg(f"✅ {module}", "SUCCESS")
+            else:
+                print_msg(f"❌ {module}", "ERROR")
+                all_ok = False
+        except:
+            print_msg(f"❌ {module}", "ERROR")
+            all_ok = False
+    
+    return all_ok
+
+def start_services():
+    """Inicia serviços básicos"""
+    print_msg("🚀 Iniciando serviços...", "INFO")
+    
+    # PostgreSQL e Redis
+    run_cmd("sudo systemctl start postgresql redis-server")
+    time.sleep(2)
+    
+    # Migrações
+    if os.path.exists("alembic.ini"):
+        print_msg("🗄️  Executando migrações...")
+        run_cmd("alembic upgrade head")
+    
+    # Dados iniciais
+    if os.path.exists("scripts/init_db.py"):
+        print_msg("👤 Inicializando dados...")
+        run_cmd(f"{sys.executable} scripts/init_db.py")
+
+def create_simple_app():
+    """Cria uma app FastAPI simples para teste"""
+    app_code = '''
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+import os
+
+app = FastAPI(title="WhatsApp Bot System")
+
+# Templates
+if os.path.exists("templates"):
+    templates = Jinja2Templates(directory="templates")
+
+# Static files  
+if os.path.exists("static"):
+    app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/")
+async def root(request: Request):
+    if os.path.exists("templates/index.html"):
+        return templates.TemplateResponse("index.html", {"request": request})
+    else:
+        return {"message": "WhatsApp Bot System", "status": "running", "domain": "chatbot.auto-atendimento.digital"}
+
+@app.get("/health")
+async def health():
+    return {"status": "healthy", "service": "whatsapp-bot"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+'''
+    
+    with open("simple_app.py", "w") as f:
+        f.write(app_code)
+    
+    print_msg("📝 App simples criada: simple_app.py", "SUCCESS")
+
+def main():
+    print_msg("🤖 WhatsApp Bot - Start Script", "INFO")
+    print_msg("🌐 Domain: chatbot.auto-atendimento.digital", "INFO")
+    print_msg("=" * 50, "INFO")
+    
+    # 1. Instalar dependências
+    install_deps()
+    
+    # 2. Testar imports
+    if not test_imports():
+        print_msg("❌ Alguns módulos falharam. Executando fix...", "ERROR")
+        run_cmd(f"{sys.executable} fix_install.py", show_output=True)
+        
+        if not test_imports():
+            print_msg("❌ Ainda há problemas. Criando app simples...", "ERROR")
+            create_simple_app()
+            print_msg("🚀 Execute: python3 simple_app.py", "INFO")
+            return
+    
+    # 3. Iniciar serviços
+    start_services()
+    
+    # 4. Tentar importar e iniciar app principal
+    try:
+        print_msg("🌐 Iniciando FastAPI...", "INFO")
+        
+        # Tentar importar o main app
+        sys.path.insert(0, os.getcwd())
+        
+        # Executar via uvicorn diretamente
+        os.system(f"{sys.executable} -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload")
+        
+    except Exception as e:
+        print_msg(f"❌ Erro iniciando app principal: {e}", "ERROR")
+        print_msg("🔄 Tentando app simples...", "INFO")
+        
+        create_simple_app()
+        
+        print_msg("🚀 Iniciando app simples...", "INFO")
+        os.system(f"{sys.executable} simple_app.py")
+
+if __name__ == "__main__":
+    main()
