@@ -610,7 +610,11 @@
       u.username = v.username.trim(); 
       u.password = v.password;
       saveState();
-      renderUserUI();
+      
+      // Force UI update
+      setTimeout(() => {
+        renderUserUI();
+      }, 100);
     } catch(e) {
       console.error('Erro ao editar usuário:', e);
     }
