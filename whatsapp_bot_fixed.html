@@ -643,26 +643,29 @@
       if (typeEl) typeEl.textContent = u ? '@'+u.username : '—';
       if (avatarEl) avatarEl.src = u ? ('https://i.pravatar.cc/80?u='+encodeURIComponent(u.username)) : 'https://i.pravatar.cc/80?img=1';
 
-    if(!listEl) return;
-    const users = AppState.users||[];
-    if(!users.length){
-      listEl.innerHTML = '<div style="padding:16px 20px;color:#64748b;font-size:13px;">Nenhum usuário criado.</div>';
-      return;
+      if(!listEl) return;
+      const users = AppState.users||[];
+      if(!users.length){
+        listEl.innerHTML = '<div style="padding:16px 20px;color:#64748b;font-size:13px;">Nenhum usuário criado.</div>';
+        return;
+      }
+      
+      listEl.innerHTML = users.map(us=>`
+        <div class="instance-item ${us.id===AppState.currentUserId?'active':''}" onclick="selectUser('${us.id}')">
+          <div class="instance-avatar-small">
+            <img src="https://i.pravatar.cc/80?u=${encodeURIComponent(us.username||us.id)}" alt="Avatar">
+            <div class="status-dot ${us.id===AppState.currentUserId?'active':'offline'}"></div>
+          </div>
+          <div class="instance-details">
+            <div class="name">${esc(us.name)}</div>
+            <div class="type">@${esc(us.username)}</div>
+          </div>
+          ${us.id===AppState.currentUserId ? '<i class="fas fa-check instance-check"></i>' : ''}
+        </div>
+      `).join('');
+    } catch(e) {
+      console.error('Erro ao renderizar UI do usuário:', e);
     }
-    
-    listEl.innerHTML = users.map(us=>`
-      <div class="instance-item ${us.id===AppState.currentUserId?'active':''}" onclick="selectUser('${us.id}')">
-        <div class="instance-avatar-small">
-          <img src="https://i.pravatar.cc/80?u=${encodeURIComponent(us.username||us.id)}" alt="Avatar">
-          <div class="status-dot ${us.id===AppState.currentUserId?'active':'offline'}"></div>
-        </div>
-        <div class="instance-details">
-          <div class="name">${esc(us.name)}</div>
-          <div class="type">@${esc(us.username)}</div>
-        </div>
-        ${us.id===AppState.currentUserId ? '<i class="fas fa-check instance-check"></i>' : ''}
-      </div>
-    `).join('');
   }
 
   /* ---------------------------
