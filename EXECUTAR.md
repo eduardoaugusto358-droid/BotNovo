@@ -28,9 +28,9 @@ python3 main.py
 
 ## 🌐 ACESSOS
 
-- **🖥️ Interface Principal**: http://chatbot.auto-atendimento.digital:8000
-- **📚 Documentação da API**: http://chatbot.auto-atendimento.digital:8000/api/docs
-- **🤖 Baileys API**: http://chatbot.auto-atendimento.digital:3001
+- **🖥️ Interface Principal**: http://78.46.250.112:8000
+- **📚 Documentação da API**: http://78.46.250.112:8000/api/docs
+- **🤖 Baileys API**: http://78.46.250.112:3001
 
 ## 👤 LOGIN PADRÃO
 
@@ -41,7 +41,7 @@ python3 main.py
 
 ## 📱 CONECTAR WHATSAPP
 
-1. Acesse http://chatbot.auto-atendimento.digital:8000
+1. Acesse http://78.46.250.112:8000
 2. Faça login com admin/admin123
 3. Vá em **"Números Conectados"**
 4. Clique **"Conectar Número"**
@@ -67,7 +67,7 @@ ps aux | grep -E "(uvicorn|node)"
 tail -f /var/log/syslog | grep whatsapp
 
 # Testar API
-curl http://chatbot.auto-atendimento.digital:8000/health
+curl http://78.46.250.112:8000/health
 ```
 
 ## 🚨 TROUBLESHOOTING

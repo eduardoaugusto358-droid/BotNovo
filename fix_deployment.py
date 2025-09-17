@@ -166,7 +166,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES=1440
 ALGORITHM=HS256
 
 # Frontend Configuration
-FRONTEND_URL=http://chatbot.auto-atendimento.digital:8000
+FRONTEND_URL=http://78.46.250.112:8000
 
 # Baileys Service Configuration
 BAILEYS_SERVICE_URL=http://localhost:3001
@@ -250,8 +250,8 @@ echo "🔧 Iniciando aplicação FastAPI..."
 echo $! > fastapi.pid
 
 echo "✅ Sistema iniciado com sucesso!"
-echo "🌐 Acesse: http://chatbot.auto-atendimento.digital:8000"
-echo "📚 API Docs: http://chatbot.auto-atendimento.digital:8000/docs"
+echo "🌐 Acesse: http://78.46.250.112:8000"
+echo "📚 API Docs: http://78.46.250.112:8000/docs"
 
 # Keep script running
 wait
@@ -385,8 +385,8 @@ except ImportError as e:
             self.log("  OU", "INFO")
             self.log("  ./start_system.sh", "INFO")
             self.log("", "INFO")
-            self.log("🌐 URL: http://chatbot.auto-atendimento.digital:8000", "INFO")
-            self.log("📚 API: http://chatbot.auto-atendimento.digital:8000/docs", "INFO")
+            self.log("🌐 URL: http://78.46.250.112:8000", "INFO")
+            self.log("📚 API: http://78.46.250.112:8000/docs", "INFO")
             
         except Exception as e:
             self.log(f"Erro durante correção: {e}", "ERROR")

@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # WhatsApp Bot Management System - Auto Installer
-# Domain: chatbot.auto-atendimento.digital
+# Domain: 78.46.250.112
 
 echo "🚀 WhatsApp Bot Management System"
-echo "🌐 Domain: chatbot.auto-atendimento.digital"
+echo "🌐 Domain: 78.46.250.112"
 echo "==============================================="
 
 # Colors
@@ -81,7 +81,7 @@ print_status "Configuring Nginx reverse proxy..."
 cat > /etc/nginx/sites-available/whatsapp-bot << 'EOF'
 server {
     listen 80;
-    server_name chatbot.auto-atendimento.digital;
+    server_name 78.46.250.112;
 
     location / {
         proxy_pass http://localhost:8000;
@@ -109,5 +109,5 @@ print_status "✅ System dependencies installed!"
 print_status "📁 Navigate to your project directory and run:"
 print_status "   python3 main.py"
 print_status ""
-print_status "🌐 Access: http://chatbot.auto-atendimento.digital"
+print_status "🌐 Access: http://78.46.250.112"
 print_status "👤 Login: admin / admin123"

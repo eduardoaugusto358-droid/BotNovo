@@ -2,7 +2,7 @@
 
 **Sistema completo de gestão de bots WhatsApp com auto-instalação**
 
-🌐 **Domínio**: chatbot.auto-atendimento.digital  
+🌐 **Domínio**: 78.46.250.112  
 🖥️ **Servidor**: 78.46.250.112
 
 ## ⚡ INSTALAÇÃO E EXECUÇÃO EM 1 COMANDO
@@ -21,9 +21,9 @@ python3 main.py
 
 ## 🌐 Acessos
 
-- **Interface Web**: http://chatbot.auto-atendimento.digital:8000
-- **API Docs**: http://chatbot.auto-atendimento.digital:8000/api/docs
-- **Baileys API**: http://chatbot.auto-atendimento.digital:3001
+- **Interface Web**: http://78.46.250.112:8000
+- **API Docs**: http://78.46.250.112:8000/api/docs
+- **Baileys API**: http://78.46.250.112:3001
 
 ## 👤 Login Padrão
 
@@ -34,7 +34,7 @@ python3 main.py
 ## 🚀 Características
 
 - **🔧 Auto-Install**: Instala tudo automaticamente
-- **🌐 Pronto para Produção**: Configurado para chatbot.auto-atendimento.digital
+- **🌐 Pronto para Produção**: Configurado para 78.46.250.112
 - **📱 WhatsApp Real**: Integração Baileys nativa
 - **🗄️ PostgreSQL**: Banco robusto e escalável
 - **⚡ Redis**: Cache e sessões
@@ -98,7 +98,7 @@ python3 main.py
 # - Instalar todas as dependências automaticamente
 # - Configurar PostgreSQL e Redis
 # - Iniciar todos os serviços
-# - Estar disponível em http://chatbot.auto-atendimento.digital:8000
+# - Estar disponível em http://78.46.250.112:8000
 ```
 
 ### 🔧 Instalação Manual (se necessário)
