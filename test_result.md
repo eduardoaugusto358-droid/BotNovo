@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Sistema de gestão WhatsApp Bot em HTML com bugs - problemas ao criar usuários, acessar abas do lado esquerdo, e várias funcionalidades não funcionando quando clica"
+user_problem_statement: "Sistema de gestão WhatsApp Bot em HTML com bugs + requisitos: transformar em sistema executável para servidor SSH (chatbot.auto-atendimento.digital), auto-instalar dependências, funcionar com PostgreSQL + Baileys WhatsApp, executar tudo com python main.py"
 
 frontend:
   - task: "Corrigir bugs JavaScript no sistema HTML"
