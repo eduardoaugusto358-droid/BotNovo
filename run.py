@@ -53,9 +53,9 @@ def run_with_docker():
         
         print("✅ Sistema iniciado com Docker!")
         print("\n📋 Serviços disponíveis:")
-        print("  🌐 Frontend: http://localhost:8000")
-        print("  📚 API Docs: http://localhost:8000/api/docs")
-        print("  🤖 Baileys: http://localhost:3001")
+        print("  🌐 Frontend: http://chatbot.auto-atendimento.digital:8000")
+        print("  📚 API Docs: http://chatbot.auto-atendimento.digital:8000/api/docs")
+        print("  🤖 Baileys: http://chatbot.auto-atendimento.digital:3001")
         print("  🗄️  PostgreSQL: localhost:5432")
         print("  🔴 Redis: localhost:6379")
         
@@ -124,9 +124,9 @@ def run_development():
         
         print("✅ Sistema iniciado em modo desenvolvimento!")
         print("\n📋 Serviços disponíveis:")
-        print("  🌐 Frontend: http://localhost:8000")
-        print("  📚 API Docs: http://localhost:8000/api/docs")
-        print("  🤖 Baileys: http://localhost:3001")
+        print("  🌐 Frontend: http://chatbot.auto-atendimento.digital:8000")
+        print("  📚 API Docs: http://chatbot.auto-atendimento.digital:8000/api/docs")
+        print("  🤖 Baileys: http://chatbot.auto-atendimento.digital:3001")
         
         print("\n⚠️  Certifique-se de que PostgreSQL e Redis estão rodando!")
         print("  PostgreSQL: localhost:5432")

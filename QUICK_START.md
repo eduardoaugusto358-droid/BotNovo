@@ -22,9 +22,10 @@ python run.py
 
 ## 🌐 Acessos
 
-- **Interface Web**: http://localhost:8000
-- **API Docs**: http://localhost:8000/api/docs  
-- **Baileys Service**: http://localhost:3001
+- **Interface Web**: http://chatbot.auto-atendimento.digital:8000
+- **API Docs**: http://chatbot.auto-atendimento.digital:8000/api/docs
+- **Baileys Service**: http://chatbot.auto-atendimento.digital:3001
+- **IP do Servidor**: 78.46.250.112
 
 ## 👤 Login Padrão
 
@@ -34,7 +35,7 @@ python run.py
 
 ## 📱 Como Conectar WhatsApp
 
-1. Acesse http://localhost:8000
+1. Acesse http://chatbot.auto-atendimento.digital:8000
 2. Faça login com admin/admin123
 3. Vá em "Números Conectados"
 4. Clique "Conectar Número"
@@ -143,7 +144,7 @@ Se encontrar problemas:
 
 1. Verifique os logs: `docker-compose logs -f`
 2. Consulte a documentação completa: `/app/README.md`
-3. Verifique a API: http://localhost:8000/api/docs
+3. Verifique a API: http://chatbot.auto-atendimento.digital:8000/api/docs
 
 ## 🎉 Sucesso!
 

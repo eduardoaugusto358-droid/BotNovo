@@ -59,7 +59,7 @@ fi
 
 # Start the application
 print_status "Starting FastAPI application..."
-print_status "API Documentation will be available at: http://localhost:8000/api/docs"
-print_status "Main Application will be available at: http://localhost:8000"
+print_status "API Documentation will be available at: http://chatbot.auto-atendimento.digital:8000/api/docs"
+print_status "Main Application will be available at: http://chatbot.auto-atendimento.digital:8000"
 
 exec uvicorn main:app --host 0.0.0.0 --port 8000 --reload --log-level info

@@ -75,9 +75,10 @@ docker-compose up -d
 ```
 
 4. **Acesse a aplicação**:
-- Interface Web: http://localhost:8000
-- API Docs: http://localhost:8000/api/docs
-- Baileys Service: http://localhost:3001
+- Interface Web: http://chatbot.auto-atendimento.digital:8000
+- API Docs: http://chatbot.auto-atendimento.digital:8000/api/docs
+- Baileys Service: http://chatbot.auto-atendimento.digital:3001
+- IP do Servidor: 78.46.250.112
 
 ### Instalação Manual
 
@@ -130,7 +131,7 @@ npm start
 
 ### 1. Primeiro Acesso
 
-Após a instalação, acesse http://localhost:8000 e faça login com:
+Após a instalação, acesse http://chatbot.auto-atendimento.digital:8000 e faça login com:
 - **Usuário**: admin
 - **Senha**: admin123
 
@@ -175,8 +176,8 @@ ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 # Services
-BAILEYS_API_URL=http://localhost:3001
-FRONTEND_URL=http://localhost:8000
+BAILEYS_API_URL=http://chatbot.auto-atendimento.digital:3001
+FRONTEND_URL=http://chatbot.auto-atendimento.digital:8000
 ```
 
 ### Banco de Dados
