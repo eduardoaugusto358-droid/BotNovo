@@ -147,16 +147,13 @@ def start_services():
         # 5. Iniciar FastAPI
         print_status("🌐 Iniciando FastAPI Server...")
         
-        # Import FastAPI app
-        sys.path.append(os.getcwd())
-        
         # Configurar ambiente
         os.environ["HOST"] = "0.0.0.0"
         os.environ["PORT"] = "8000"
         
         # Iniciar FastAPI usando uvicorn
         api_process = run_command([
-            sys.executable, "-m", "uvicorn", "app:app",
+            sys.executable, "-m", "uvicorn", "main:app",
             "--host", "0.0.0.0", 
             "--port", "8000",
             "--reload"
