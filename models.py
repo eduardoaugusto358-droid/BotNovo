@@ -79,7 +79,7 @@ class Contact(Base):
     name = Column(String(100), nullable=True)
     profile_picture = Column(String(500), nullable=True)
     is_business = Column(Boolean, default=False)
-    metadata = Column(JSON, default=dict)
+    contact_metadata = Column(JSON, default=dict)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     
