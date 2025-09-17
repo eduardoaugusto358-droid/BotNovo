@@ -4,6 +4,7 @@ WhatsApp Bot Management System - Main Entry Point
 Execute este arquivo para instalar e iniciar tudo automaticamente
 """
 
+import importlib.util
 import os
 import sys
 import subprocess
@@ -67,78 +68,148 @@ def run_command(command, cwd=None, shell=True):
         print_status(f"Erro executando comando: {e}", "ERROR")
         return None
 
-def force_install_critical_deps():
-    """Força instalação de dependências críticas"""
-    print_status("🔧 Instalando dependências críticas...", "HEADER")
-    
-    critical_deps = [
-        "fastapi==0.110.1",
-        "uvicorn[standard]==0.25.0", 
-        "sqlalchemy==2.0.25",
-        "psycopg2-binary==2.9.9",
-        "pydantic==2.6.4",
-        "python-dotenv==1.0.1",
-        "jinja2==3.1.3",
-        "python-multipart==0.0.9"
-    ]
-    
-    # Atualizar pip primeiro
-    subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], 
-                  capture_output=True)
-    
-    for dep in critical_deps:
+PACKAGE_IMPORT_OVERRIDES = {
+    "python-jose": "jose",
+    "python-dotenv": "dotenv",
+    "psycopg2-binary": "psycopg2",
+    "python-multipart": "multipart",
+    "pillow": "PIL",
+}
+
+
+def read_requirements():
+    """Lê requirements.txt e retorna lista de dependências"""
+    req_path = Path("requirements.txt")
+    if not req_path.exists():
+        return []
+
+    requirements = []
+    for line in req_path.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        requirements.append(line)
+    return requirements
+
+
+def normalize_requirement_name(requirement):
+    """Extrai nome base do pacote sem versão ou extras"""
+    name = requirement.split(";")[0].strip()
+    for separator in ("==", ">=", "<=", "~=", "!=", ">", "<"):
+        if separator in name:
+            name = name.split(separator, 1)[0].strip()
+    if "[" in name:
+        name = name.split("[", 1)[0].strip()
+    return name
+
+
+def requirement_to_module(requirement):
+    """Mapeia requirement para nome de módulo importável"""
+    base_name = normalize_requirement_name(requirement)
+    if not base_name:
+        return ""
+    if base_name in PACKAGE_IMPORT_OVERRIDES:
+        return PACKAGE_IMPORT_OVERRIDES[base_name]
+    return base_name.replace("-", "_")
+
+
+def module_available(module_name):
+    """Verifica se módulo pode ser importado"""
+    if not module_name:
+        return True
+
+    try:
+        if importlib.util.find_spec(module_name) is not None:
+            return True
+    except Exception:
+        pass
+
+    try:
+        result = subprocess.run(
+            [sys.executable, "-c", f"import {module_name}"],
+            capture_output=True,
+            text=True,
+        )
+        return result.returncode == 0
+    except Exception:
+        return False
+
+
+def force_install_critical_deps(missing_requirements=None):
+    """Força instalação das dependências informadas ou de requirements.txt"""
+    dependencies = missing_requirements or read_requirements()
+    if not dependencies:
+        print_status("⚠️  Nenhuma dependência para instalar", "WARNING")
+        return
+
+    print_status("🔧 Garantindo dependências Python...", "HEADER")
+
+    subprocess.run(
+        [sys.executable, "-m", "pip", "install", "--upgrade", "pip"],
+        capture_output=True,
+    )
+
+    for dep in dependencies:
         print_status(f"📦 Instalando {dep}...")
         try:
-            result = subprocess.run([sys.executable, "-m", "pip", "install", dep], 
-                                  capture_output=True, text=True)
+            result = subprocess.run(
+                [sys.executable, "-m", "pip", "install", dep],
+                capture_output=True,
+                text=True,
+            )
             if result.returncode != 0:
-                print_status(f"⚠️  Problema instalando {dep}: {result.stderr}", "WARNING")
+                print_status(
+                    f"⚠️  Problema instalando {dep}: {result.stderr}",
+                    "WARNING",
+                )
         except Exception as e:
             print_status(f"❌ Erro instalando {dep}: {e}", "ERROR")
-    
-    # Instalar requirements.txt também
-    if os.path.exists("requirements.txt"):
-        print_status("📄 Instalando requirements.txt...")
-        subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"], 
-                      capture_output=True)
+
+    if Path("requirements.txt").exists():
+        print_status("📄 Sincronizando requirements.txt...")
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "pip",
+                "install",
+                "-r",
+                "requirements.txt",
+            ],
+            capture_output=True,
+        )
 
 def check_installation_needed():
     """Verifica se precisa instalar dependências"""
     print_status("🔍 Verificando dependências...", "HEADER")
-    
-    # Testar imports críticos
-    critical_modules = [
-        ("FastAPI", "fastapi"),
-        ("SQLAlchemy", "sqlalchemy"), 
-        ("Psycopg2", "psycopg2"),
-        ("Pydantic", "pydantic"),
-        ("Uvicorn", "uvicorn")
-    ]
-    
-    missing_modules = []
-    
-    for name, module in critical_modules:
-        try:
-            result = subprocess.run([sys.executable, "-c", f"import {module}"], 
-                                  capture_output=True, text=True)
-            if result.returncode == 0:
-                print_status(f"✅ {name} OK", "SUCCESS")
+
+    requirements = read_requirements()
+    missing_requirements = []
+
+    if requirements:
+        print_status("📦 Verificando pacotes Python obrigatórios...")
+        for requirement in requirements:
+            module_name = requirement_to_module(requirement)
+            if module_available(module_name):
+                print_status(f"✅ {module_name} OK", "SUCCESS")
             else:
-                print_status(f"❌ {name} FALTANDO", "WARNING")
-                missing_modules.append(module)
-        except:
-            print_status(f"❌ {name} ERRO", "WARNING")
-            missing_modules.append(module)
-    
+                print_status(
+                    f"❌ {module_name or requirement} faltando (pacote {requirement})",
+                    "WARNING",
+                )
+                missing_requirements.append(requirement)
+    else:
+        print_status("⚠️  requirements.txt não encontrado", "WARNING")
+
     # Verificar serviços do sistema
     services = [
         ("PostgreSQL", "sudo systemctl is-active postgresql"),
         ("Redis", "sudo systemctl is-active redis-server"),
         ("Node.js Baileys", "ls baileys_service/node_modules")
     ]
-    
+
     services_need_install = False
-    
+
     for service_name, command in services:
         try:
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
@@ -150,13 +221,28 @@ def check_installation_needed():
         except:
             print_status(f"❌ {service_name} ERRO", "WARNING")
             services_need_install = True
-    
-    need_install = len(missing_modules) > 0 or services_need_install
-    
-    if missing_modules:
-        print_status(f"📦 Módulos faltando: {', '.join(missing_modules)}", "WARNING")
-        force_install_critical_deps()
-    
+
+    if missing_requirements:
+        unique_missing = sorted(set(missing_requirements))
+        print_status(
+            f"📦 Dependências faltando: {', '.join(unique_missing)}",
+            "WARNING",
+        )
+        force_install_critical_deps(unique_missing)
+
+        remaining_missing = []
+        for requirement in unique_missing:
+            module_name = requirement_to_module(requirement)
+            if not module_available(module_name):
+                remaining_missing.append(requirement)
+
+        if not remaining_missing:
+            print_status("✅ Dependências Python corrigidas!", "SUCCESS")
+
+        missing_requirements = remaining_missing
+
+    need_install = len(missing_requirements) > 0 or services_need_install
+
     return need_install
 
 def auto_install():
@@ -238,7 +324,7 @@ def start_services():
         # Testar API
         try:
             import requests
-            response = requests.get("http://localhost:8000/health", timeout=5)
+            response = requests.get("http://78.46.250.112:8000/health", timeout=5)
             if response.status_code == 200:
                 print_status("✅ FastAPI está funcionando!", "SUCCESS")
             else:
@@ -249,7 +335,7 @@ def start_services():
         # Testar Baileys
         try:
             import requests
-            response = requests.get("http://localhost:3001/health", timeout=5)
+            response = requests.get("http://78.46.250.112:3001/health", timeout=5)
             if response.status_code == 200:
                 print_status("✅ Baileys Service está funcionando!", "SUCCESS")
             else:
