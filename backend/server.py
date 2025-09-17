@@ -62,13 +62,19 @@ except Exception as e:
     # Fallback to in-memory storage for development
     db = None
 
+# Resolve project directories regardless of the current working directory
+BASE_DIR = Path(__file__).resolve().parent.parent
+TEMPLATES_DIR = BASE_DIR / "templates"
+STATIC_DIR = BASE_DIR / "static"
+
 # Templates and static files
-if os.path.exists("templates"):
-    templates = Jinja2Templates(directory="templates")
+templates = None
+if TEMPLATES_DIR.exists():
+    templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
 # Serve static files if they exist
-if os.path.exists("static"):
-    app.mount("/static", StaticFiles(directory="static"), name="static")
+if STATIC_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 # API Routes
 @app.get("/api/health")
@@ -270,8 +276,11 @@ async def get_finances():
 async def read_root(request: Request):
     """Serve the WhatsApp Bot Management frontend"""
     try:
-        return templates.TemplateResponse("index.html", {"request": request})
+        if templates is not None:
+            return templates.TemplateResponse("index.html", {"request": request})
+        raise RuntimeError("Templates directory not available")
     except Exception as e:
+        logger.error(f"Error rendering template: {e}")
         # Fallback HTML interface
         return HTMLResponse("""
         <!DOCTYPE html>
