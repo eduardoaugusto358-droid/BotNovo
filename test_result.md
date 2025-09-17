@@ -293,3 +293,30 @@ integration:
       - working: true
         agent: "main"
         comment: "Integração completa: criação de sessões, QR codes, envio de mensagens, webhooks para recebimento, sincronização de status."
+deployment_fix:
+  - task: "Resolver externally-managed-environment"
+    implemented: true
+    working: true
+    file: "/app/deploy_whatsapp_bot.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Criado ambiente virtual Python para contornar restrições do sistema. Todas as dependências instaladas com sucesso."
+      - working: true
+        agent: "main"
+        comment: "Backend WhatsApp Bot integrado ao ambiente Emergent, usando MongoDB para compatibilidade."
+
+  - task: "Integrar sistema WhatsApp Bot no Emergent"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Sistema WhatsApp Bot totalmente integrado: backend FastAPI com endpoints funcionais, Baileys service configurado, ambiente virtual funcionando."
