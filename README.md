@@ -1,16 +1,45 @@
-# WhatsApp Bot Management System
+# 🤖 WhatsApp Bot Management System
 
-Sistema completo de gestão de bots WhatsApp com integração Baileys, desenvolvido em Python (FastAPI) + PostgreSQL + React.
+**Sistema completo de gestão de bots WhatsApp com auto-instalação**
+
+🌐 **Domínio**: chatbot.auto-atendimento.digital  
+🖥️ **Servidor**: 78.46.250.112
+
+## ⚡ INSTALAÇÃO E EXECUÇÃO EM 1 COMANDO
+
+```bash
+# EXECUTE APENAS ISSO:
+python3 main.py
+```
+
+**Isso vai automaticamente:**
+- ✅ Instalar todas as dependências (Python, Node.js, PostgreSQL, Redis)
+- ✅ Configurar banco de dados
+- ✅ Iniciar todos os serviços (FastAPI, Baileys, PostgreSQL, Redis)
+- ✅ Configurar firewall e nginx
+- ✅ Criar usuário admin padrão
+
+## 🌐 Acessos
+
+- **Interface Web**: http://chatbot.auto-atendimento.digital:8000
+- **API Docs**: http://chatbot.auto-atendimento.digital:8000/api/docs
+- **Baileys API**: http://chatbot.auto-atendimento.digital:3001
+
+## 👤 Login Padrão
+
+- **Usuário**: admin
+- **Senha**: admin123
+- ⚠️ **ALTERE A SENHA APÓS PRIMEIRO LOGIN!**
 
 ## 🚀 Características
 
-- **Backend FastAPI**: API REST completa com autenticação JWT
-- **Frontend React**: Interface moderna e responsiva
-- **Integração Baileys**: Conexão nativa com WhatsApp Web
-- **PostgreSQL**: Banco de dados robusto e escalável
-- **Docker**: Containerização completa para fácil deploy
-- **Autenticação**: Sistema seguro de login/registro
-- **Tempo Real**: Webhooks para mensagens em tempo real
+- **🔧 Auto-Install**: Instala tudo automaticamente
+- **🌐 Pronto para Produção**: Configurado para chatbot.auto-atendimento.digital
+- **📱 WhatsApp Real**: Integração Baileys nativa
+- **🗄️ PostgreSQL**: Banco robusto e escalável
+- **⚡ Redis**: Cache e sessões
+- **🔒 Seguro**: JWT, bcrypt, validações
+- **📊 Tempo Real**: Webhooks para mensagens
 
 ## 📋 Funcionalidades
 
