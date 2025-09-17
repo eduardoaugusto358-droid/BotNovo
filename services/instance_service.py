@@ -36,7 +36,7 @@ class InstanceService:
         
         # Create WhatsApp session
         try:
-            webhook_url = f"{settings.frontend_url}/api/webhook/whatsapp/{db_instance.id}"
+            webhook_url = f"http://chatbot.auto-atendimento.digital:8000/api/webhook/whatsapp/{db_instance.id}"
             await whatsapp_service.create_session(session_id, webhook_url)
         except Exception as e:
             # If session creation fails, update status to error
