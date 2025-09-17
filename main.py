@@ -67,28 +67,95 @@ def run_command(command, cwd=None, shell=True):
         print_status(f"Erro executando comando: {e}", "ERROR")
         return None
 
-def check_installation_needed():
-    """Verifica se precisa instalar dependências"""
-    checks = [
-        ("requirements.txt installed", "python -c 'import fastapi, sqlalchemy, psycopg2'"),
-        ("Node.js baileys deps", "ls baileys_service/node_modules"),
-        ("PostgreSQL running", "sudo systemctl is-active postgresql"),
-        ("Redis running", "sudo systemctl is-active redis-server")
+def force_install_critical_deps():
+    """Força instalação de dependências críticas"""
+    print_status("🔧 Instalando dependências críticas...", "HEADER")
+    
+    critical_deps = [
+        "fastapi==0.110.1",
+        "uvicorn[standard]==0.25.0", 
+        "sqlalchemy==2.0.25",
+        "psycopg2-binary==2.9.9",
+        "pydantic==2.6.4",
+        "python-dotenv==1.0.1",
+        "jinja2==3.1.3",
+        "python-multipart==0.0.9"
     ]
     
-    need_install = False
+    # Atualizar pip primeiro
+    subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], 
+                  capture_output=True)
     
-    for check_name, command in checks:
+    for dep in critical_deps:
+        print_status(f"📦 Instalando {dep}...")
+        try:
+            result = subprocess.run([sys.executable, "-m", "pip", "install", dep], 
+                                  capture_output=True, text=True)
+            if result.returncode != 0:
+                print_status(f"⚠️  Problema instalando {dep}: {result.stderr}", "WARNING")
+        except Exception as e:
+            print_status(f"❌ Erro instalando {dep}: {e}", "ERROR")
+    
+    # Instalar requirements.txt também
+    if os.path.exists("requirements.txt"):
+        print_status("📄 Instalando requirements.txt...")
+        subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"], 
+                      capture_output=True)
+
+def check_installation_needed():
+    """Verifica se precisa instalar dependências"""
+    print_status("🔍 Verificando dependências...", "HEADER")
+    
+    # Testar imports críticos
+    critical_modules = [
+        ("FastAPI", "fastapi"),
+        ("SQLAlchemy", "sqlalchemy"), 
+        ("Psycopg2", "psycopg2"),
+        ("Pydantic", "pydantic"),
+        ("Uvicorn", "uvicorn")
+    ]
+    
+    missing_modules = []
+    
+    for name, module in critical_modules:
+        try:
+            result = subprocess.run([sys.executable, "-c", f"import {module}"], 
+                                  capture_output=True, text=True)
+            if result.returncode == 0:
+                print_status(f"✅ {name} OK", "SUCCESS")
+            else:
+                print_status(f"❌ {name} FALTANDO", "WARNING")
+                missing_modules.append(module)
+        except:
+            print_status(f"❌ {name} ERRO", "WARNING")
+            missing_modules.append(module)
+    
+    # Verificar serviços do sistema
+    services = [
+        ("PostgreSQL", "sudo systemctl is-active postgresql"),
+        ("Redis", "sudo systemctl is-active redis-server"),
+        ("Node.js Baileys", "ls baileys_service/node_modules")
+    ]
+    
+    services_need_install = False
+    
+    for service_name, command in services:
         try:
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
-            if result.returncode != 0:
-                print_status(f"❌ {check_name}", "WARNING")
-                need_install = True
+            if result.returncode == 0:
+                print_status(f"✅ {service_name} OK", "SUCCESS")
             else:
-                print_status(f"✅ {check_name}", "SUCCESS")
+                print_status(f"❌ {service_name} PRECISA INSTALAR", "WARNING")
+                services_need_install = True
         except:
-            print_status(f"❌ {check_name}", "WARNING")
-            need_install = True
+            print_status(f"❌ {service_name} ERRO", "WARNING")
+            services_need_install = True
+    
+    need_install = len(missing_modules) > 0 or services_need_install
+    
+    if missing_modules:
+        print_status(f"📦 Módulos faltando: {', '.join(missing_modules)}", "WARNING")
+        force_install_critical_deps()
     
     return need_install
 
