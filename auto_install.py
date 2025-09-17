@@ -349,8 +349,8 @@ sudo systemctl start whatsapp-bot-api
 sudo systemctl start whatsapp-bot-baileys
 
 echo "✅ Sistema iniciado!"
-echo "🌐 Acesse: http://chatbot.auto-atendimento.digital:8000"
-echo "📚 API Docs: http://chatbot.auto-atendimento.digital:8000/api/docs"
+echo "🌐 Acesse: http://78.46.250.112:8000"
+echo "📚 API Docs: http://78.46.250.112:8000/api/docs"
 echo "👤 Login: admin / admin123"
 """
     
@@ -364,7 +364,7 @@ def main():
     """Função principal de instalação"""
     print_status("🚀 INICIANDO INSTALAÇÃO AUTOMÁTICA", "HEADER")
     print_status("WhatsApp Bot Management System", "HEADER")
-    print_status("Domínio: chatbot.auto-atendimento.digital", "HEADER")
+    print_status("Domínio: 78.46.250.112", "HEADER")
     print_status("=" * 50, "HEADER")
     
     try:
@@ -406,8 +406,8 @@ def main():
         print_status("=" * 50, "SUCCESS")
         print_status("🎉 INSTALAÇÃO CONCLUÍDA COM SUCESSO!", "SUCCESS")
         print_status("=" * 50, "SUCCESS")
-        print_status("🌐 URL: http://chatbot.auto-atendimento.digital:8000", "SUCCESS")
-        print_status("📚 API: http://chatbot.auto-atendimento.digital:8000/api/docs", "SUCCESS")
+        print_status("🌐 URL: http://78.46.250.112:8000", "SUCCESS")
+        print_status("📚 API: http://78.46.250.112:8000/api/docs", "SUCCESS")
         print_status("👤 Login: admin / admin123", "SUCCESS")
         print_status("🔧 Para iniciar: ./start_system.sh", "SUCCESS")
         print_status("📋 Status: sudo systemctl status whatsapp-bot-*", "SUCCESS")

@@ -30,7 +30,7 @@ def print_banner():
 ║                                                               ║
 ║          🤖 WhatsApp Bot Management System 🤖                ║
 ║                                                               ║
-║          🌐 Domain: chatbot.auto-atendimento.digital         ║
+║          🌐 Domain: 78.46.250.112         ║
 ║          🚀 Auto-Install & Auto-Start System                 ║
 ║                                                               ║
 ║          FastAPI + PostgreSQL + Baileys + React              ║
@@ -260,9 +260,9 @@ def start_services():
         print_status("=" * 60, "SUCCESS")
         print_status("🎉 SISTEMA INICIADO COM SUCESSO!", "SUCCESS")
         print_status("=" * 60, "SUCCESS")
-        print_status("🌐 URL Principal: http://chatbot.auto-atendimento.digital:8000", "SUCCESS")
-        print_status("📚 API Docs: http://chatbot.auto-atendimento.digital:8000/api/docs", "SUCCESS")
-        print_status("🤖 Baileys API: http://chatbot.auto-atendimento.digital:3001", "SUCCESS")
+        print_status("🌐 URL Principal: http://78.46.250.112:8000", "SUCCESS")
+        print_status("📚 API Docs: http://78.46.250.112:8000/api/docs", "SUCCESS")
+        print_status("🤖 Baileys API: http://78.46.250.112:3001", "SUCCESS")
         print_status("👤 Login Padrão: admin / admin123", "SUCCESS")
         print_status("⚠️  ALTERE A SENHA APÓS PRIMEIRO LOGIN!", "WARNING")
         print_status("=" * 60, "SUCCESS")
@@ -367,7 +367,7 @@ def create_app():
                 "status": "healthy",
                 "service": "whatsapp-bot-api",
                 "version": "1.0.0",
-                "domain": "chatbot.auto-atendimento.digital"
+                "domain": "78.46.250.112"
             }
         
         return app

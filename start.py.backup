@@ -116,7 +116,7 @@ async def root(request: Request):
     if os.path.exists("templates/index.html"):
         return templates.TemplateResponse("index.html", {"request": request})
     else:
-        return {"message": "WhatsApp Bot System", "status": "running", "domain": "chatbot.auto-atendimento.digital"}
+        return {"message": "WhatsApp Bot System", "status": "running", "domain": "78.46.250.112"}
 
 @app.get("/health")
 async def health():
@@ -134,7 +134,7 @@ if __name__ == "__main__":
 
 def main():
     print_msg("🤖 WhatsApp Bot - Start Script", "INFO")
-    print_msg("🌐 Domain: chatbot.auto-atendimento.digital", "INFO")
+    print_msg("🌐 Domain: 78.46.250.112", "INFO")
     print_msg("=" * 50, "INFO")
     
     # 1. Instalar dependências

@@ -61,7 +61,7 @@ python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
 ```bash
 # Testar API
-curl http://chatbot.auto-atendimento.digital:8000/health
+curl http://78.46.250.112:8000/health
 
 # Testar se módulos foram instalados
 python3 -c "import fastapi, sqlalchemy, psycopg2; print('✅ Dependências OK')"
@@ -105,7 +105,7 @@ chmod +x *.py
 ## 🎯 RESULTADO ESPERADO
 
 Após correção, você deve conseguir:
-- ✅ Acessar http://chatbot.auto-atendimento.digital:8000
+- ✅ Acessar http://78.46.250.112:8000
 - ✅ Ver a interface de login
 - ✅ Fazer login com admin/admin123
 - ✅ Acessar todas as funcionalidades
