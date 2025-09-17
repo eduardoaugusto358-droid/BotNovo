@@ -4,6 +4,7 @@ let authToken = null;
 
 // API configuration
 const API_BASE = '/api';
+const DOMAIN = 'chatbot.auto-atendimento.digital';
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', function() {
