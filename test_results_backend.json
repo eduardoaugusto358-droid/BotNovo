@@ -1,0 +1,200 @@
+[
+  {
+    "test": "Health Check",
+    "success": true,
+    "details": "Service is healthy",
+    "timestamp": "2025-09-17T02:11:04.965211",
+    "response_data": {
+      "status": "healthy",
+      "service": "whatsapp-bot-api",
+      "version": "1.0.0",
+      "timestamp": "2025-09-17T02:11:04.962975"
+    }
+  },
+  {
+    "test": "Authentication Login",
+    "success": true,
+    "details": "Login successful for user: admin",
+    "timestamp": "2025-09-17T02:11:04.972545",
+    "response_data": {
+      "access_token": "demo-token-12345",
+      "token_type": "bearer",
+      "user": {
+        "id": "1",
+        "username": "admin",
+        "name": "Administrator"
+      }
+    }
+  },
+  {
+    "test": "Authentication Me",
+    "success": true,
+    "details": "User info retrieved: admin",
+    "timestamp": "2025-09-17T02:11:04.983201",
+    "response_data": {
+      "id": "1",
+      "username": "admin",
+      "name": "Administrator"
+    }
+  },
+  {
+    "test": "Dashboard Stats",
+    "success": true,
+    "details": "All statistics retrieved: 8 fields",
+    "timestamp": "2025-09-17T02:11:04.992127",
+    "response_data": {
+      "total_instances": 2,
+      "active_instances": 1,
+      "total_messages": 156,
+      "messages_today": 23,
+      "total_campaigns": 5,
+      "active_campaigns": 2,
+      "total_revenue": 1250.0,
+      "monthly_revenue": 340.0
+    }
+  },
+  {
+    "test": "WhatsApp Instances List",
+    "success": true,
+    "details": "Retrieved 2 instances",
+    "timestamp": "2025-09-17T02:11:05.015018",
+    "response_data": [
+      {
+        "id": "1",
+        "name": "Inst\u00e2ncia Principal",
+        "phone": "+55 11 99999-9999",
+        "status": "connected",
+        "qr_code": null,
+        "created_at": "2024-01-15T10:30:00Z"
+      },
+      {
+        "id": "2",
+        "name": "Inst\u00e2ncia Suporte",
+        "phone": "+55 11 88888-8888",
+        "status": "disconnected",
+        "qr_code": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+        "created_at": "2024-01-16T14:20:00Z"
+      }
+    ]
+  },
+  {
+    "test": "WhatsApp Instance Create",
+    "success": true,
+    "details": "Instance created with ID: 3",
+    "timestamp": "2025-09-17T02:11:05.021527",
+    "response_data": {
+      "id": "3",
+      "name": "Test Instance",
+      "phone": null,
+      "status": "connecting",
+      "qr_code": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+      "created_at": "2025-09-17T02:11:05.019766"
+    }
+  },
+  {
+    "test": "Messages List",
+    "success": true,
+    "details": "Retrieved 2 messages",
+    "timestamp": "2025-09-17T02:11:05.030376",
+    "response_data": [
+      {
+        "id": "1",
+        "instance_id": "1",
+        "contact_name": "Jo\u00e3o Silva",
+        "contact_phone": "+55 11 77777-7777",
+        "message": "Ol\u00e1! Gostaria de saber mais sobre os produtos.",
+        "type": "received",
+        "timestamp": "2024-01-17T09:15:00Z"
+      },
+      {
+        "id": "2",
+        "instance_id": "1",
+        "contact_name": "Maria Santos",
+        "contact_phone": "+55 11 66666-6666",
+        "message": "Obrigado pelo atendimento!",
+        "type": "received",
+        "timestamp": "2024-01-17T08:30:00Z"
+      }
+    ]
+  },
+  {
+    "test": "Message Send",
+    "success": true,
+    "details": "Message sent with status: sent",
+    "timestamp": "2025-09-17T02:11:05.036571",
+    "response_data": {
+      "id": "3",
+      "instance_id": "1",
+      "contact_phone": "+5511999999999",
+      "message": "Test message from automated testing",
+      "type": "sent",
+      "status": "sent",
+      "timestamp": "2025-09-17T02:11:05.034766"
+    }
+  },
+  {
+    "test": "Campaigns List",
+    "success": true,
+    "details": "Retrieved 2 campaigns",
+    "timestamp": "2025-09-17T02:11:05.041613",
+    "response_data": [
+      {
+        "id": "1",
+        "name": "Promo\u00e7\u00e3o Ver\u00e3o 2024",
+        "message": "\ud83c\udf1e Aproveite nossa promo\u00e7\u00e3o de ver\u00e3o! Descontos de at\u00e9 50%",
+        "status": "active",
+        "sent_count": 120,
+        "total_contacts": 150,
+        "created_at": "2024-01-10T14:00:00Z"
+      },
+      {
+        "id": "2",
+        "name": "Lan\u00e7amento Produto",
+        "message": "\ud83d\ude80 Conhe\u00e7a nosso novo produto! Acesse nosso site.",
+        "status": "completed",
+        "sent_count": 85,
+        "total_contacts": 85,
+        "created_at": "2024-01-05T10:00:00Z"
+      }
+    ]
+  },
+  {
+    "test": "Campaign Create",
+    "success": true,
+    "details": "Campaign created with ID: 3",
+    "timestamp": "2025-09-17T02:11:05.047491",
+    "response_data": {
+      "id": "3",
+      "name": "Test Campaign",
+      "message": "\ud83e\uddea This is a test campaign message created by automated testing",
+      "status": "draft",
+      "sent_count": 0,
+      "total_contacts": 0,
+      "created_at": "2025-09-17T02:11:05.045856"
+    }
+  },
+  {
+    "test": "Finances",
+    "success": true,
+    "details": "Retrieved 2 financial entries",
+    "timestamp": "2025-09-17T02:11:05.053298",
+    "response_data": [
+      {
+        "id": "1",
+        "description": "Assinatura Mensal",
+        "amount": 99.9,
+        "type": "income",
+        "date": "2024-01-15",
+        "category": "subscription"
+      },
+      {
+        "id": "2",
+        "description": "Mensagens SMS",
+        "amount": -25.5,
+        "type": "expense",
+        "date": "2024-01-14",
+        "category": "messaging"
+      }
+    ]
+  }
+]
