@@ -188,7 +188,10 @@ PORT=8000
         
         baileys_dir = self.base_dir / "baileys_service"
         if baileys_dir.exists():
-            self.run_command("yarn install", cwd=baileys_dir)
+            # Remove problematic lock files
+            self.run_command("rm -f package-lock.json yarn.lock", cwd=baileys_dir, check=False)
+            # Use npm instead of yarn to avoid SSH issues
+            self.run_command("npm install", cwd=baileys_dir)
             self.log("Dependências do Baileys instaladas!", "SUCCESS")
         else:
             self.log("Diretório baileys_service não encontrado", "WARNING")
